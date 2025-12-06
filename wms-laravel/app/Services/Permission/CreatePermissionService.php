@@ -16,11 +16,9 @@ class CreatePermissionService
     public function create(CreatePermissionRequestDto $dto): CreatePermissionResponseDto
     {
         try {
-            $permission = DB::transaction(function () use ($dto) {
-                return Permission::create([
-                    'name' => $dto->name,
-                ]);
-            });
+            $permission = Permission::create([
+                'name' => $dto->name,
+            ]);
 
             return CreatePermissionResponseDto::fromPermission($permission);
         } catch (Exception $e) {
