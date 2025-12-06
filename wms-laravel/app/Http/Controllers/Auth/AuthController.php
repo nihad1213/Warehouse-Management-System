@@ -9,5 +9,23 @@ use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    //
+    public function __construct()
+    {
+        // Service will go here
+    }
+
+    public function register()
+    {
+
+    }
+
+    public function login()
+    {
+
+    }
+
+    public function logout()
+    {
+
+    }
 }
