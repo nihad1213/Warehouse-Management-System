@@ -15,7 +15,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     // Permission Routes
     Route::prefix('permission')->group(function () {
-        Route::post('/create', [PermissionController::class, 'create']);
+        Route::post('/create', [PermissionController::class, 'create'])->middleware('check.permission:create_permission');
     });
 });
 
