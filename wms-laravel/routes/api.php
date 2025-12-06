@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::post('/create', [PermissionController::class, 'create'])->middleware('check.permission:create_permission');
         Route::post('/update', [PermissionController::class, 'update'])->middleware('check.permission:update_permission');
         Route::post('/delete', [PermissionController::class, 'delete'])->middleware('check.permission:delete_permission');
+        Route::post('/read', [PermissionController::class, 'read'])->middleware('check.permission:read_permission');
     });
 
 });

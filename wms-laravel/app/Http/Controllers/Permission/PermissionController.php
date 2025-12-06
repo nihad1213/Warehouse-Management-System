@@ -6,9 +6,11 @@ namespace App\Http\Controllers\Permission;
 
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Services\Permission\ReadPermissionService;
 use App\Services\Permission\CreatePermissionService;
 use App\Services\Permission\DeletePermissionService;
 use App\Services\Permission\UpdatePermissionService;
+use App\Dto\Permission\Request\ReadPermissionRequestDto;
 use App\Dto\Permission\Request\CreatePermissionRequestDto;
 use App\Dto\Permission\Request\DeletePermissionRequestDto;
 use App\Dto\Permission\Request\UpdatePermissionRequestDto;
@@ -18,7 +20,8 @@ class PermissionController extends Controller
     public function __construct(
         private CreatePermissionService $createPermissionService,
         private UpdatePermissionService $updatePermissionService,
-        private DeletePermissionService $deletePermissionService
+        private DeletePermissionService $deletePermissionService,
+        private ReadPermissionService $readPermissionService
     ){}
 
     public function create(): JsonResponse
@@ -63,6 +66,21 @@ class PermissionController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Permission delete failed',
+                'error' => $e->getMessage()
+            ], $e->getCode() ?: 500);
+        }
+    }
+
+    public function read(): JsonResponse
+    {
+        try {
+            $dto = ReadPermissionRequestDto::from(request()->all());
+            $response = $this->readPermissionService->read($dto);
+        
+            return response()->json($response->toArray(), 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Permission read failed',
                 'error' => $e->getMessage()
             ], $e->getCode() ?: 500);
         }
