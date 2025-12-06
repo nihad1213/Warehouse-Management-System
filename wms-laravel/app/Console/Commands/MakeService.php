@@ -81,6 +81,8 @@ class MakeService extends Command
         return <<<EOT
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 class {{ class }}
