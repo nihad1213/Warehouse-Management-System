@@ -73,4 +73,9 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function hasPermission($permissionName)
+    {
+        return $this->role?->permissions->contains('name', $permissionName) ?? false;
+    }
 }
