@@ -67,7 +67,13 @@ class MakeService extends Command
     private function getNamespace($name)
     {
         $name = str_replace('/', '\\', trim($name, '/'));
-        return "App\\Services\\" . str_replace('/', '\\', dirname($name));
+        $directory = trim(dirname($name), '\\');
+
+        if ($directory === '.' || $directory === '') {
+            return 'App\\Services';
+        }
+
+        return "App\\Services\\{$directory}";
     }
 
     private function getStub()
