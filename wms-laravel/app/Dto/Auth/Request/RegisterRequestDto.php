@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Dto\Auth\Request;
 
+use Spatie\LaravelData\Attributes\Validation\IntegerType;
 use Spatie\LaravelData\Data;
 use Spatie\LaravelData\Attributes\MapInputName;
 use Spatie\LaravelData\Mappers\SnakeCaseMapper;
@@ -26,6 +27,9 @@ class RegisterRequestDto extends Data
         
         #[Min(5)]
         public ?string $middleName,
+
+        #[Required, IntegerType]
+        public int $roleId,
 
         #[Required, Email, Unique('users', 'email')]
         public string $email,

@@ -16,10 +16,10 @@ class RegisterService
 {
     public function regsister(RegisterRequestDto $dto): RegisterResponseDto
     {
-        $defaultRole = Role::where('name', 'admin')->first();
+        $role = Role::find($dto->roleId);
 
-        if (!$defaultRole) {
-            throw new CoreException('Default role not found', 404);
+        if (!$role) {
+            throw new CoreException('Selected role not Found!', 404);
         }
 
         $user = User::create([
@@ -27,7 +27,7 @@ class RegisterService
             'email' => $dto->email,
             'password' => Hash::make($dto->password),
             'phone_number' => $dto->phoneNumber,
-            'role_id' => $defaultRole->id,
+            'role_id' => $role->id,
         ]);
 
         $token = JWTAuth::fromUser($user);
