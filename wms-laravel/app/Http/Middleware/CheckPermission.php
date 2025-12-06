@@ -15,11 +15,11 @@ class CheckPermission
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
-     * @param  string  $permission  // permission name passed from route
+     * @param  string  $permission
      */
-    public function handle(Request $request, Closure $next, string $permission): Response
+    public function handle(Request $request, Closure $next, ?string $permission = null): Response
     {
-        $user = auth()->user(); // JWT-auth user
+        $user = auth()->user();
 
         if (!$user || !$user->hasPermission($permission)) {
             return response()->json(['error' => 'Unauthorized'], 403);
