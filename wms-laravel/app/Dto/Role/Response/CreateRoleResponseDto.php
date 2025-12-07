@@ -23,7 +23,7 @@ class CreateRoleResponseDto extends Data
             id: $role->id,
             name: $role->name,
             permissions: $role->permissions->pluck('name')->toArray(),
-            message: 'Permission created successfully',
+            message: 'Role created successfully',
         );
     }
 

@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Role;
 
-use App\Dto\Role\Request\CreateRoleRequestDto;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Services\Role\CreateRoleService;
+use App\Services\Role\DeleteRoleService;
+use App\Dto\Role\Request\CreateRoleRequestDto;
+use App\Dto\Role\Request\DeleteRoleRequestDto;
 
 class RoleController extends Controller
 {
     public function __construct(
-        private CreateRoleService $createRoleService
+        private CreateRoleService $createRoleService,
+        private DeleteRoleService $deleteRoleService
     ){}
 
     public function create(): JsonResponse
@@ -25,6 +27,22 @@ class RoleController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'message' => 'Error creating role',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function delete(): JsonResponse
+    {
+        try {
+            $data = request()->all();
+            $dto = DeleteRoleRequestDto::from($data);
+            $response = $this->deleteRoleService->delete($dto);
+
+            return response()->json($response->toArray(), 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Error deleting role',
                 'error' => $e->getMessage(),
             ], 500);
         }
