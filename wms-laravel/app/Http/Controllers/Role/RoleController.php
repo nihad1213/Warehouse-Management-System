@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Role;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Services\Role\ReadRoleService;
 use App\Services\Role\CreateRoleService;
 use App\Services\Role\DeleteRoleService;
 use App\Services\Role\UpdateRoleService;
+use App\Dto\Role\Request\ReadRoleRequestDto;
 use App\Dto\Role\Request\CreateRoleRequestDto;
 use App\Dto\Role\Request\DeleteRoleRequestDto;
 use App\Dto\Role\Request\UpdateRoleRequestDto;
@@ -18,6 +20,7 @@ class RoleController extends Controller
         private CreateRoleService $createRoleService,
         private DeleteRoleService $deleteRoleService,
         private UpdateRoleService $updateRoleService,
+        private ReadRoleService $readRoleService
     ){}
 
     public function create(): JsonResponse
@@ -32,6 +35,21 @@ class RoleController extends Controller
                 'message' => 'Error creating role',
                 'error' => $e->getMessage(),
             ], 500);
+        }
+    }
+
+    public function read(): JsonResponse
+    {
+        try {
+            $dto = ReadRoleRequestDto::from(request()->all());
+            $response = $this->readRoleService->read($dto);
+        
+            return response()->json($response->toArray(), 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Role read failed',
+                'error' => $e->getMessage()
+            ], $e->getCode() ?: 500);
         }
     }
 
