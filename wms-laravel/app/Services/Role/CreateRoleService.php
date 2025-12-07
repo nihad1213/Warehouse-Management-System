@@ -18,6 +18,7 @@ class CreateRoleService
         try {
 
             $existingPermissions = Permission::whereIn('id', $dto->permissionIDs)->pluck('id')->toArray();
+            
             if (count($existingPermissions) !== count($dto->permissionIDs)) {
                 throw new CoreException('One or more permissions do not exist', 400);
             }
