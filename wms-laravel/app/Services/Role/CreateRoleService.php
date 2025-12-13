@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Services\Role;
 
+use App\Exceptions\NotFoundException;
+use App\Exceptions\OperationFailedException;
 use Exception;
 use App\Models\Role;
 use App\Models\Permission;
-use App\Exceptions\CoreException;
 use App\Dto\Role\Request\CreateRoleRequestDto;
 use App\Dto\Role\Response\CreateRoleResponseDto;
 
@@ -20,7 +21,7 @@ class CreateRoleService
             $existingPermissions = Permission::whereIn('id', $dto->permissionIDs)->pluck('id')->toArray();
             
             if (count($existingPermissions) !== count($dto->permissionIDs)) {
-                throw new CoreException('One or more permissions do not exist', 400);
+                throw new NotFoundException('One or more permissions do not exist');
             }
 
 
@@ -31,8 +32,7 @@ class CreateRoleService
             $role->permissions()->attach($dto->permissionIDs);
             return CreateRoleResponseDto::fromRole($role->load('permissions'));
         } catch (Exception $e) {
-            throw new CoreException('Failed to create role', 500);
+            throw new OperationFailedException('Failed to create role');
         }
-        
     }
 }
