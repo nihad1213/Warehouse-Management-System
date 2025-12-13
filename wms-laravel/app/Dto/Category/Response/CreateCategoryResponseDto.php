@@ -15,7 +15,7 @@ class CreateCategoryResponseDto extends Data
         public string $message,
     ){}
 
-    public static function fromPermission(Category $category): self
+    public static function fromCategory(Category $category): self
     {
         return new self(
             id: $category->id,

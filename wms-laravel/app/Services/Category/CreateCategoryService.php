@@ -15,7 +15,7 @@ class CreateCategoryService
                 'name' => $dto->name,
             ]);
 
-            return CreateCategoryResponseDto::fromPermission($category);
+            return CreateCategoryResponseDto::fromCategory($category);
         } catch (Exception $e) {
             throw new OperationFailedException('Failed to create category');
         }
