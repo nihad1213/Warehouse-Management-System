@@ -1,6 +1,10 @@
 <?php
 
 declare(strict_types=1);
+
+namespace App\Services\Category;
+
+use Exception;
 use App\Models\Category;
 use App\Exceptions\OperationFailedException;
 use App\Dto\Category\Request\CreateCategoryRequestDto;

@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Role\RoleController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Permission\PermissionController;
@@ -28,6 +28,14 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::put('/update', [RoleController::class, 'update'])->middleware('check.permission:update_role');
         Route::post('/delete', [RoleController::class, 'delete'])->middleware('check.permission:delete_role');
         Route::post('/read', [RoleController::class, 'read'])->middleware('check.permission:read_role');
+    });
+
+    // Categories Routes
+    Route::prefix('category')->group(function () {
+        Route::post('/create', [CategoryController::class, 'create'])->middleware('check.permission:create_category');
+        Route::put('/update', [CategoryController::class, 'update'])->middleware('check.permission:update_category');
+        Route::post('/delete', [CategoryController::class, 'delete'])->middleware('check.permission:delete_category');
+        Route::post('/read', [CategoryController::class, 'read'])->middleware('check.permission:read_category');
     });
 
 });
