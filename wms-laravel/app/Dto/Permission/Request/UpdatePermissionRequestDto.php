@@ -18,7 +18,7 @@ class UpdatePermissionRequestDto extends Data
         #[Required, IntegerType]
         public int $id,
 
-        #[Required, Max(255), Unique('permission', 'name')]
+        #[Max(255), Unique('permission', 'name')]
         public string $name
     ){}
 }

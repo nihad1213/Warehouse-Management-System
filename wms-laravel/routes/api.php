@@ -17,7 +17,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     // Permission Routes
     Route::prefix('permission')->group(function () {
         Route::post('/create', [PermissionController::class, 'create'])->middleware('check.permission:create_permission');
-        Route::post('/update', [PermissionController::class, 'update'])->middleware('check.permission:update_permission');
+        Route::put('/update', [PermissionController::class, 'update'])->middleware('check.permission:update_permission');
         Route::post('/delete', [PermissionController::class, 'delete'])->middleware('check.permission:delete_permission');
         Route::post('/read', [PermissionController::class, 'read'])->middleware('check.permission:read_permission');
     });
@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     // Roles Routes
     Route::prefix('role')->group(function () {
         Route::post('/create', [RoleController::class, 'create'])->middleware('check.permission:create_role');
-        Route::post('/update', [RoleController::class, 'update'])->middleware('check.permission:update_role');
+        Route::put('/update', [RoleController::class, 'update'])->middleware('check.permission:update_role');
         Route::post('/delete', [RoleController::class, 'delete'])->middleware('check.permission:delete_role');
         Route::post('/read', [RoleController::class, 'read'])->middleware('check.permission:read_role');
     });

@@ -20,11 +20,11 @@ class UpdateRoleRequestDto extends Data
         #[Required, Exists('roles', 'id')]
         public int $id,
         
-        #[Required, Min(3), Max(255)]
+        #[Min(3), Max(255)]
         public string $name,
         
         #[MapInputName('permission_ids')]
-        #[Required, ArrayType]
+        #[ArrayType]
         public array $permissionIDs
     ){}
 }
