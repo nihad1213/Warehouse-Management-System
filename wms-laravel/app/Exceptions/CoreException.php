@@ -6,10 +6,28 @@ namespace App\Exceptions;
 
 use Exception;
 
-class CoreException extends Exception
+abstract class CoreException extends Exception
 {
-    public static function create(string $message, int $code):self
+    protected int $httpStatusCode = 404;
+
+    public function getHttpStatusCode(): int
     {
-        return new self($message, $code);
+        return $this->httpStatusCode;
     }
+}
+
+
+class AuthenticationException extends CoreException
+{
+    protected int $httpStatusCode = 401;
+}
+
+class NotFoundException extends CoreException
+{
+    protected int $httpStatusCode = 404;
+}
+
+class ValidationException extends CoreException
+{
+    protected int $httpStatusCode = 422;
 }
