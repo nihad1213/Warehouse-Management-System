@@ -25,9 +25,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     // Roles Routes
     Route::prefix('role')->group(function () {
         Route::post('/create', [RoleController::class, 'create'])->middleware('check.permission:create_role');
-        Route::post('/update', [RoleController::class, 'update'])->middleware('check.permission:update_permission');
-        Route::post('/delete', [RoleController::class, 'delete'])->middleware('check.permission:delete_permission');
-        Route::post('/read', [RoleController::class, 'read'])->middleware('check.permission:read_permission');
+        Route::post('/update', [RoleController::class, 'update'])->middleware('check.permission:update_role');
+        Route::post('/delete', [RoleController::class, 'delete'])->middleware('check.permission:delete_role');
+        Route::post('/read', [RoleController::class, 'read'])->middleware('check.permission:read_role');
     });
 
 });
