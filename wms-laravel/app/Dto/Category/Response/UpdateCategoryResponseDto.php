@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Dto\Permission\Response;
+namespace App\Dto\Category\Response;
 
 use App\Models\Category;
 use Spatie\LaravelData\Data;
