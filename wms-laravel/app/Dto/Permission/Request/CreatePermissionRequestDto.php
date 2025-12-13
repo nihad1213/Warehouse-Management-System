@@ -14,7 +14,7 @@ use Spatie\LaravelData\Attributes\Validation\Required;
 class CreatePermissionRequestDto extends Data
 {
     public function __construct(
-        #[Required, Max(255), Unique('permission', 'name')]
+        #[Required, Max(255), Unique('permissions', 'name')]
         public string $name
     ){}
 }

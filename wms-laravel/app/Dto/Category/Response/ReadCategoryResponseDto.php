@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Dto\Category\Response;
 
 use App\Models\Category;
-use App\Models\Permission;
 use Spatie\LaravelData\Data;
 use Illuminate\Pagination\LengthAwarePaginator;
 
