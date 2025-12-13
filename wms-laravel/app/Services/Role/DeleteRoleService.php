@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Role;
 
+use App\Exceptions\OperationFailedException;
 use Exception;
 use App\Models\Role;
-use App\Exceptions\CoreException;
 use App\Dto\Role\Request\DeleteRoleRequestDto;
 use App\Dto\Role\Response\DeleteRoleResponseDto;
 
@@ -21,7 +21,7 @@ class DeleteRoleService
 
             return DeleteRoleResponseDto::fromRole($dto->id);
         } catch(Exception $e) {
-            throw new CoreException('Failed to delete role', 500);
+            throw new OperationFailedException('Failed to delete role');
         }
         
     }   

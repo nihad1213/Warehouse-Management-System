@@ -6,7 +6,8 @@ namespace App\Services\Permission;
 
 use App\Dto\Permission\Request\DeletePermissionRequestDto;
 use App\Dto\Permission\Response\DeletePermissionResponseDto;
-use App\Exceptions\CoreException;
+use App\Exceptions\NotFoundException;
+use App\Exceptions\OperationFailedException;
 use App\Models\Permission;
 use Exception;
 
@@ -18,14 +19,14 @@ class DeletePermissionService
             $permission = Permission::find($dto->id);
             
             if (!$permission) {
-                throw new CoreException('Permission not found', 404);
+                throw new NotFoundException('Permission not found');
             }
 
             $permission->delete();
 
             return DeletePermissionResponseDto::fromPermission($permission);
         } catch (Exception $e) {
-            throw new CoreException('Failed to delete permission', 202);
+            throw new OperationFailedException('Failed to delete permission');
         }
     }
 }

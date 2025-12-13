@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Auth;
 
-use App\Exceptions\CoreException;
+use App\Exceptions\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use App\Dto\Auth\Request\LoginRequestDto;
 use App\Dto\Auth\Response\LoginResponseDto;
@@ -19,7 +19,7 @@ class LoginService
         ];
         
         if (! $token = Auth::guard('api')->attempt($credentials)) {
-            throw new CoreException('Invalid email or password', 401);
+            throw new AuthenticationException('Invalid email or password');
         }
 
         $user = Auth::guard('api')->user();

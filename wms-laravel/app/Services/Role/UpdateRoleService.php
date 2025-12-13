@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services\Role;
 
+use App\Exceptions\NotFoundException;
+use App\Exceptions\OperationFailedException;
 use Exception;
 use App\Models\Role;
 use App\Models\Permission;
@@ -20,7 +22,7 @@ class UpdateRoleService
             $existingPermissions = Permission::whereIn('id', $dto->permissionIDs)->pluck('id')->toArray();
             
             if (count($existingPermissions) !== count($dto->permissionIDs)) {
-                throw new CoreException('One or more permissions do not exist', 400);
+                throw new NotFoundException('One or more permissions do not exist');
             }
 
             $role = Role::findOrFail($dto->id);
@@ -33,7 +35,7 @@ class UpdateRoleService
 
             return UpdateRoleResponseDto::fromRole($role->load('permissions'));
         } catch (Exception $e) {
-            throw new CoreException('Failed to update role', 500);
+            throw new OperationFailedException('Failed to update role');
         }
     }
 }

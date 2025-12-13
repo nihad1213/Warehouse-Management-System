@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Auth;
 
+use App\Exceptions\NotFoundException;
 use App\Models\Role;
 use App\Models\User;
-use App\Exceptions\CoreException;
 use Illuminate\Support\Facades\Hash;
 use App\Dto\Auth\Request\RegisterRequestDto;
 use App\Dto\Auth\Response\RegisterResponseDto;
@@ -19,7 +19,7 @@ class RegisterService
         $role = Role::find($dto->roleId);
 
         if (!$role) {
-            throw new CoreException('Selected role not Found!', 404);
+            throw new NotFoundException('Selected role not Found!');
         }
 
         $user = User::create([

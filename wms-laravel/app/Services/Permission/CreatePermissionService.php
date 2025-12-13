@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Services\Permission;
 
 use Exception;
+use App\Exceptions\OperationFailedException;
 use App\Models\Permission;
-use App\Exceptions\CoreException;
-use Illuminate\Support\Facades\DB;
 use App\Dto\Permission\Request\CreatePermissionRequestDto;
 use App\Dto\Permission\Response\CreatePermissionResponseDto;
 
@@ -22,7 +21,7 @@ class CreatePermissionService
 
             return CreatePermissionResponseDto::fromPermission($permission);
         } catch (Exception $e) {
-            throw new CoreException('Failed to create permission', 500);
+            throw new OperationFailedException('Failed to create permission');
         }
     }
 }
