@@ -67,12 +67,14 @@ class MakeService extends Command
     private function getNamespace($name)
     {
         $name = str_replace('/', '\\', trim($name, '/'));
-        $directory = trim(dirname($name), '\\');
+        $parts = explode('\\', $name);
+        array_pop($parts);
 
-        if ($directory === '.' || $directory === '') {
+        if (empty($parts)) {
             return 'App\\Services';
         }
-
+    
+        $directory = implode('\\', $parts);
         return "App\\Services\\{$directory}";
     }
 
@@ -87,10 +89,7 @@ namespace {{ namespace }};
 
 class {{ class }}
 {
-    public function __construct()
-    {
-        //
-    }
+    
 }
 
 EOT;
